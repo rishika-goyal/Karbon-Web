@@ -1,4 +1,4 @@
-const BASE_URL = "https://karbon-web.netlify.app";
+const BASE_URL = "https://agentic-ai-wine.vercel.app";
 
 const generateBtn = document.getElementById("generateBtn");
 const taskInput = document.getElementById("task");
