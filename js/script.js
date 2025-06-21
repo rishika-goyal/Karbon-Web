@@ -5,6 +5,10 @@ const taskInput = document.getElementById("task");
 const iframe = document.getElementById("preview");
 const errorDiv = document.getElementById("error");
 
+const showCodeToggle = document.getElementById("showCodeToggle");
+const codeDisplay = document.getElementById("codeDisplay");
+const codeBlock = codeDisplay?.querySelector("code");
+
 generateBtn.addEventListener("click", async () => {
   const task = taskInput.value.trim();
 
@@ -15,9 +19,10 @@ generateBtn.addEventListener("click", async () => {
 
   errorDiv.textContent = "";
   generateBtn.disabled = true;
+  codeDisplay.style.display = "none"; // Hide code while loading
 
   try {
-    // Load loading animation or fallback text
+    // Show loading animation
     try {
       const loaderHtml = await fetch("components/loader.html").then(res => res.text());
       iframe.srcdoc = loaderHtml;
@@ -43,11 +48,28 @@ generateBtn.addEventListener("click", async () => {
     }
 
     iframe.srcdoc = data.code;
+
+    if (showCodeToggle.checked && codeBlock) {
+      codeBlock.textContent = data.code;
+      Prism.highlightElement(codeBlock); // Apply syntax highlighting
+      codeDisplay.style.display = "block";
+    } else {
+      codeDisplay.style.display = "none";
+    }
   } catch (err) {
     console.error("Generation error:", err);
-    iframe.srcdoc = ""; // Clear preview
+    iframe.srcdoc = "";
     errorDiv.textContent = "❌ Something went wrong. Please try again.";
   } finally {
     generateBtn.disabled = false;
+  }
+});
+
+showCodeToggle?.addEventListener("change", () => {
+  if (showCodeToggle.checked && codeBlock?.textContent) {
+    codeDisplay.style.display = "block";
+    Prism.highlightElement(codeBlock);
+  } else {
+    codeDisplay.style.display = "none";
   }
 });

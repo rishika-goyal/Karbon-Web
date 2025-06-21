@@ -6,6 +6,9 @@
   <title>Karbon AI</title>
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
+  <!-- Prism.js for syntax highlighting -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.css" rel="stylesheet" />
 </head>
 <body>
   <header>
@@ -22,12 +25,28 @@
 
     <div id="error"></div>
     <iframe id="preview" title="Generated App Preview"></iframe>
+
+    <div class="controls">
+      <label>
+        <input type="checkbox" id="showCodeToggle" />
+        Show HTML Code
+      </label>
+    </div>
+
+    <pre id="codeDisplay" style="display: none;">
+      <code class="language-html"></code>
+    </pre>
   </main>
 
   <footer>
     <p>&copy; 2025 Karbon AI. Built with ♥ for developers.</p>
   </footer>
 
+  <!-- Prism.js for syntax highlighting -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup.min.js"></script>
+  
+  <!-- Your main script -->
   <script src="js/script.js"></script>
 </body>
 </html>
