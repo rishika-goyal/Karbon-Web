@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karbon AI</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+</head>
+<body>
+  <header>
+    <img src="assets/logo.png" alt="Karbon AI Logo" class="logo" />
+    <h1>Karbon AI</h1>
+    <p class="subtitle">Generate full frontend apps from a single prompt</p>
+  </header>
+
+  <main>
+    <div class="input-group">
+      <input type="text" id="task" placeholder="Describe your frontend app..." />
+      <button id="generateBtn">Generate</button>
+    </div>
+
+    <div id="error"></div>
+    <iframe id="preview" title="Generated App Preview"></iframe>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Karbon AI. Built with ♥ for developers.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
