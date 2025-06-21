@@ -1,38 +1,53 @@
 const BASE_URL = "https://agentic-ai-wine.vercel.app";
 
-document.getElementById("generateBtn").addEventListener("click", async () => {
-  const taskInput = document.getElementById("task");
-  const iframe = document.getElementById("preview");
-  const errorDiv = document.getElementById("error");
+const generateBtn = document.getElementById("generateBtn");
+const taskInput = document.getElementById("task");
+const iframe = document.getElementById("preview");
+const errorDiv = document.getElementById("error");
 
+generateBtn.addEventListener("click", async () => {
   const task = taskInput.value.trim();
+
   if (!task) {
-    errorDiv.textContent = "Please enter a description for your frontend app.";
+    errorDiv.textContent = "⚠️ Please enter a description for your frontend app.";
     return;
   }
 
   errorDiv.textContent = "";
-
-  // Show loader from loader.html
-  try {
-    const loaderHtml = await fetch("assets/loader.html").then(res => res.text());
-    iframe.srcdoc = loaderHtml;
-  } catch {
-    iframe.srcdoc = "<p style='padding:2rem;text-align:center;'>Loading...</p>";
-  }
+  generateBtn.disabled = true;
 
   try {
-    const res = await fetch(`${BASE_URL}/generate?q=${encodeURIComponent(task)}`);
-    const data = await res.json();
+    // Load loading animation or fallback text
+    try {
+      const loaderHtml = await fetch("components/loader.html").then(res => res.text());
+      iframe.srcdoc = loaderHtml;
+    } catch {
+      iframe.srcdoc = "<p style='padding:2rem;text-align:center;'>Loading...</p>";
+    }
 
-    if (!res.ok || !data.code) {
-      throw new Error("Failed to generate code.");
+    const response = await fetch(`${BASE_URL}/generate?q=${encodeURIComponent(task)}`);
+    const contentType = response.headers.get("content-type") || "";
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    if (!contentType.includes("application/json")) {
+      throw new Error("Unexpected response format");
+    }
+
+    const data = await response.json();
+
+    if (!data.code) {
+      throw new Error("No code returned from server.");
     }
 
     iframe.srcdoc = data.code;
   } catch (err) {
-    errorDiv.textContent = "Something went wrong. Please try again.";
-    console.error(err);
-    iframe.srcdoc = ""; // Clear preview on error
+    console.error("Generation error:", err);
+    iframe.srcdoc = ""; // Clear preview
+    errorDiv.textContent = "❌ Something went wrong. Please try again.";
+  } finally {
+    generateBtn.disabled = false;
   }
 });
