@@ -1,48 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Karbon AI</title>
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karbon AI - Next Generation Frontend Generator</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <meta name="google-adsense-account" content="ca-pub-5500303894286506">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <header>
-    <img src="assets/logo.png" alt="Karbon AI Logo" class="logo" />
-    <h1>Karbon AI</h1>
-    <p class="subtitle">Generate full frontend apps from a single prompt</p>
-  </header>
-
-  <main>
-    <div class="input-group">
-      <input type="text" id="task" placeholder="Describe your frontend app..." />
-      <button id="generateBtn">Generate</button>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+        </div>
+        <div class="grid-pattern"></div>
     </div>
 
-    <div id="error"></div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="assets/logo.png" alt="Karbon AI" class="nav-logo">
+                <span class="brand-text">Karbon AI</span>
+            </div>
+            <div class="nav-controls">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button class="nav-menu-btn" id="navMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
 
-    <div class="controls">
-      <label><input type="checkbox" id="showCodeToggle" /> Show HTML Code</label>
-      <button id="copyCodeBtn" disabled>Copy Code</button>
-      <button id="downloadCodeBtn" disabled>Download HTML</button>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Generate</span>
+                    <span class="typewriter" id="typewriter"></span>
+                    <span class="cursor">|</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Transform your ideas into stunning frontend applications with the power of AI. 
+                    Just describe what you want, and watch the magic happen.
+                </p>
+            </div>
+            
+            <!-- Enhanced Input Section -->
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <div class="input-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="promptInput" 
+                        placeholder="Describe your frontend app... e.g., 'A modern todo app with dark mode'"
+                        class="main-input"
+                    >
+                    <button class="generate-btn" id="generateBtn">
+                        <span class="btn-text">Generate</span>
+                        <span class="btn-loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </span>
+                        <div class="btn-ripple"></div>
+                    </button>
+                </div>
+                
+                <!-- Quick Suggestions -->
+                <div class="suggestions">
+                    <span class="suggestions-label">Try these:</span>
+                    <div class="suggestion-chips">
+                        <button class="chip" data-prompt="A modern calculator with glassmorphism design">Calculator App</button>
+                        <button class="chip" data-prompt="A weather dashboard with animated icons">Weather Dashboard</button>
+                        <button class="chip" data-prompt="A task manager with drag and drop">Task Manager</button>
+                        <button class="chip" data-prompt="A portfolio website with smooth animations">Portfolio Site</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
 
-      <select id="historySelect" title="History">
-        <option value="">⏳ History</option>
-      </select>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Error Message -->
+        <div class="error-container" id="errorContainer">
+            <div class="error-content">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span id="errorMessage"></span>
+            </div>
+        </div>
 
-      <label class="theme-toggle">
-        🌓 <input type="checkbox" id="appThemeToggle" /> Dark Theme
-      </label>
-    </div>
+        <!-- Controls Panel -->
+        <div class="controls-panel" id="controlsPanel">
+            <div class="controls-grid">
+                <div class="control-group">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="showCodeToggle">
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-label">
+                            <i class="fas fa-code"></i>
+                            Show Code
+                        </span>
+                    </label>
+                </div>
+                
+                <button class="control-btn" id="copyCodeBtn" disabled>
+                    <i class="fas fa-copy"></i>
+                    <span>Copy Code</span>
+                    <div class="btn-ripple"></div>
+                </button>
+                
+                <button class="control-btn" id="downloadCodeBtn" disabled>
+                    <i class="fas fa-download"></i>
+                    <span>Download</span>
+                    <div class="btn-ripple"></div>
+                </button>
+                
+                <div class="history-dropdown">
+                    <select id="historySelect">
+                        <option value="">⏳ History</option>
+                    </select>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                
+                <button class="control-btn secondary" id="fullscreenBtn">
+                    <i class="fas fa-expand"></i>
+                    <span>Fullscreen</span>
+                </button>
+            </div>
+        </div>
 
-    <iframe id="preview" title="Generated App Preview"></iframe>
-  </main>
+        <!-- Preview Container -->
+        <div class="preview-container" id="previewContainer">
+            <div class="preview-header">
+                <div class="preview-tabs">
+                    <button class="tab-btn active" data-tab="preview">
+                        <i class="fas fa-eye"></i>
+                        Preview
+                    </button>
+                    <button class="tab-btn" data-tab="code">
+                        <i class="fas fa-code"></i>
+                        Code
+                    </button>
+                </div>
+                <div class="preview-actions">
+                    <button class="action-btn" id="refreshBtn">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                    <button class="action-btn" id="shareBtn">
+                        <i class="fas fa-share"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="preview-content">
+                <iframe id="previewFrame" title="Generated App Preview"></iframe>
+                <div class="loading-overlay" id="loadingOverlay">
+                    <div class="loading-animation">
+                        <div class="loading-circle"></div>
+                        <div class="loading-text">Generating your app...</div>
+                        <div class="loading-progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  <footer>
-    <p>&copy; 2025 Karbon AI. Built with ♥ for developers.</p>
-  </footer>
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="features-container">
+                <h2 class="features-title">Why Choose Karbon AI?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Lightning Fast</h3>
+                        <p>Generate complete applications in seconds with our optimized AI engine.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Responsive Design</h3>
+                        <p>All generated apps are mobile-first and work perfectly on any device.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3>Modern UI</h3>
+                        <p>Beautiful, modern interfaces that follow the latest design trends.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <h3>Clean Code</h3>
+                        <p>Production-ready code that's clean, semantic, and well-structured.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-  <script src="js/script.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="assets/logo.png" alt="Karbon AI" class="footer-logo">
+                <span>Karbon AI</span>
+            </div>
+            <div class="footer-text">
+                <p>&copy; 2025 Karbon AI. Built with ♥ for developers.</p>
+                <p>Empowering creativity through artificial intelligence.</p>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification System -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
